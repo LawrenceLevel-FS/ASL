@@ -9,10 +9,22 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    queryInterface.addColumn("Stars", "galaxyId", {
-      type: Sequelize.INTEGER,
-      defaultValue: null,
-      allowNull: true,
+    await queryInterface.createTable("Planets", {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
+      name: {
+        type: Sequelize.STRING,
+      },
+      size: {
+        type: Sequelize.INTEGER,
+      },
+      type: {
+        type: Sequelize.STRING,
+      },
     });
   },
 
@@ -23,7 +35,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-
-    queryInterface.removeColumn("Stars", "galaxyId");
+    await queryInterface.dropTable("Planet");
   },
 };
