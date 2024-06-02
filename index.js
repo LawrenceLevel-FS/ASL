@@ -6,24 +6,20 @@ const bodyParser = require("body-parser");
 const app = express();
 
 // rendering engine
-app.configure(() => {
-  app.set("views", `${__dirname}/templates`);
-  app.set("view engine", "twig");
-
-  app.set("twig options", {
-    strict_variables: false,
-  });
-});
+app.set("views", `${__dirname}/templates`);
+app.set("view engine", "twig");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Load in our RESTful routers
 const routers = require("./routers/index.js");
-const { twig } = require("twig");
 
 // Home page welcome middleware
 app.get("/", (req, res) => {
-  res.render();
+  res.status(200).render("views/Default/home.html.twig", {
+    name: "Level Lawrence",
+    favFoods: ["Pizza", "Fettuccine", "Pasta Ali Vodka"],
+  });
   // res.status(200).send("Welcome to Star Tracker Library");
 });
 
