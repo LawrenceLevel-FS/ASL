@@ -3,31 +3,16 @@
         <title>My Website - {% block title %}Advanced Server-side languages{% endblock %}</title>
     </head>
     <body>
-        <header>
-            <nav id="primary-header-nav">
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/galaxies">Galaxies</a></li>
-                    <li><a href="/planets">Planets</a></li>
-                    <li><a href="/stars">Stars</a></li>
-                </ul>
-            </nav>
-        </header>
+        
+        {# header partial #}
+        {% include "partials/_header.html.twig" %}
 
         <main id="app">
         {% block app%}
         {% endblock%}
         </main>
-
-        <footer>
-             <nav id="primary-footer-nav">
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/galaxies">Galaxies</a></li>
-                    <li><a href="/planets">Planets</a></li>
-                    <li><a href="/stars">Stars</a></li>
-                </ul>
-            </nav>
-        </footer>
+        
+        {# footer partial #}
+        {% include "partials/_footer.html.twig" %}    
     </body>
 </html>

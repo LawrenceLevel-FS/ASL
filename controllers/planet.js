@@ -68,5 +68,25 @@ const remove = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+const form = async (req, res) => {
+  let planet = new Planet();
+  try {
+    if ("undefined" !== typeof req.params.id) {
+      planet = await Planet.findOne();
+    }
+
+    if (res.locals.isBrowser) {
+      res
+        .status(200)
+        .render(`views/Star/${planet.id ? "edit" : "new"}.html.twig`, {
+          planet,
+        });
+      return;
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 // Export all controller actions
-module.exports = { index, show, create, update, remove };
+module.exports = { index, show, create, update, remove, form };

@@ -4,7 +4,11 @@ const { Star } = require("../models/index");
 const index = async (req, res) => {
   try {
     const stars = await Star.findAll();
-    // Respond with an array and 2xx status code
+    if (res.locals.isBrowser) {
+      res.status(200).render("views/Star/index.html.twig", { stars });
+      return;
+    }
+
     res.status(200).json(stars);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -69,5 +73,23 @@ const remove = async (req, res) => {
   }
 };
 
+const form = async (req, res) => {
+  let star = new Star();
+  try {
+    if ("undefined" !== typeof req.params.id) {
+      star = await Star.findOne();
+    }
+
+    if (res.locals.isBrowser) {
+      res
+        .status(200)
+        .render(`views/Star/${star.id ? "edit" : "new"}.html.twig`, { star });
+      return;
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // Export all controller actions
-module.exports = { index, show, create, update, remove };
+module.exports = { index, show, create, update, remove, form };
