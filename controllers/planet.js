@@ -5,6 +5,10 @@ const index = async (req, res) => {
   try {
     const planets = await Planet.findAll();
     // Respond with an array and 2xx status code
+    if (res.locals.isBrowser) {
+      res.status(200).render("views/Planet/index.html.twig", { planets });
+      return;
+    }
     res.status(200).json(planets);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -73,17 +77,15 @@ const form = async (req, res) => {
   let planet = new Planet();
   try {
     if ("undefined" !== typeof req.params.id) {
-      planet = await Planet.findOne();
+      planet = await Planet.findByPk(req.params.id);
     }
 
-    if (res.locals.isBrowser) {
-      res
-        .status(200)
-        .render(`views/Star/${planet.id ? "edit" : "new"}.html.twig`, {
-          planet,
-        });
-      return;
-    }
+    res
+      .status(200)
+      .render(`views/Planet/${planet.id ? "edit" : "new"}.html.twig`, {
+        planet,
+      });
+    return;
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

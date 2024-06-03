@@ -1,0 +1,36 @@
+{% extends "layout/base.html.twig" %}
+
+{% block title %}View all Planet{% endblock %}
+{% block app %}
+<h1>Viewing all Planet:</h1>
+
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 1rem;
+}
+</style>
+
+<table>
+    <thead>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Size</th>
+        <th>Description</th>
+        <th>Actions</th>
+    </thead>
+    <tbody>
+        {% for planet in planets %}
+            <tr>
+                <td>{{ planet.id}}</td>
+                <td>{{ planet.name}}</td>
+                <td>{{ planet.size}}</td>
+                <td>{{ planet.description}}</td>
+                <td><a href="/planets/{{planet.id}}/delete">Delete</a></td>
+                <td><a href="/planets/{{planet.id}}/edit">Edit</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %} 
