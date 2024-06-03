@@ -1,0 +1,10 @@
+{% extends "layout/base.html.twig" %}
+{% block title %}View all Planets{% endblock %}
+{% block app %}
+<h1>Editing {{galaxy.name}} :</h1>
+    <div>
+        <p>Planet ID: {{galaxy.id}}</p>
+    </div>
+    {% include "views/Galaxy/_form.html.twig"  with {"galaxy": galaxy} %}
+  
+{% endblock %} 

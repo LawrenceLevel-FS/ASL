@@ -1,0 +1,25 @@
+{% if galaxy is defined and galaxy.id > 0 %}
+    <form method="POST" action="/planets/{{galaxy.id}}">
+        <input type="hidden" name="id" value="{{galaxy.id}}"/>
+{% else %}
+    <form method="POST" action="/planets">
+{% endif %}
+
+        <div>
+            <label>Galaxy Name:</label>
+            <input type="text" name="name" {% if galaxy is defined and galaxy.name %} value="{{galaxy.name}}"{% endif %} />
+        </div>
+
+        <div>
+            <label>Glanet Description:</label>
+            <input type="text" name="type" {% if galaxy is defined and galaxy.type %} value="{{galaxy.type}}"{% endif %} />
+        </div>
+
+        <div>
+            <label>Glanet Size:</label>
+            <input type="text" name="size" {% if galaxy is defined and galaxy.size %} value="{{galaxy.size}}"{% endif %} />
+        </div>
+
+        <button type="submit"> Save Glanet</button>
+
+    </form>

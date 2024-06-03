@@ -3,9 +3,9 @@ const { Galaxy, Star } = require("../models/index");
 // Show all resources
 const index = async (req, res) => {
   try {
-    const newGalaxy = await Galaxy.findAll();
+    const galaxy = await Galaxy.findAll();
     // Respond with an array and 2xx status code
-    res.status(200).json(newGalaxy);
+    res.status(200).render("views/Galaxy/index.html.twig", { galaxy });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -73,17 +73,14 @@ const form = async (req, res) => {
   let galaxy = new Galaxy();
   try {
     if ("undefined" !== typeof req.params.id) {
-      galaxy = await galaxy.findOne();
+      galaxy = await Galaxy.findByPk(req.params.id);
     }
-
-    if (res.locals.isBrowser) {
-      res
-        .status(200)
-        .render(`views/Star/${galaxy.id ? "edit" : "new"}.html.twig`, {
-          galaxy,
-        });
-      return;
-    }
+    res
+      .status(200)
+      .render(`views/Galaxy/${galaxy.id ? "edit" : "new"}.html.twig`, {
+        galaxy,
+      });
+    return;
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

@@ -1,0 +1,36 @@
+{% extends "layout/base.html.twig" %}
+
+{% block title %}View all Galaxy{% endblock %}
+{% block app %}
+<h1>Viewing all Galaxy:</h1>
+
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 1rem;
+}
+</style>
+
+<table>
+    <thead>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Size</th>
+        <th>Description</th>
+        <th>Actions</th>
+    </thead>
+    <tbody>
+        {% for galaxi in galaxy %}
+            <tr>
+                <td>{{ galaxi.id}}</td>
+                <td>{{ galaxi.name}}</td>
+                <td>{{ galaxi.size}}</td>
+                <td>{{ galaxi.type}}</td>
+                <td><a href="/galaxies/{{galaxi.id}}/delete">Delete</a></td>
+                <td><a href="/galaxies/{{galaxi.id}}/edit">Edit</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %} 
