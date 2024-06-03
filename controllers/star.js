@@ -77,15 +77,13 @@ const form = async (req, res) => {
   let star = new Star();
   try {
     if ("undefined" !== typeof req.params.id) {
-      star = await Star.findOne();
+      star = await Star.findByPk(req.params.id);
     }
+    res
+      .status(200)
+      .render(`views/Star/${star.id ? "edit" : "new"}.html.twig`, { star });
 
-    if (res.locals.isBrowser) {
-      res
-        .status(200)
-        .render(`views/Star/${star.id ? "edit" : "new"}.html.twig`, { star });
-      return;
-    }
+    return;
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
